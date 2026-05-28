@@ -1,7 +1,17 @@
 import base64
 from anthropic import Anthropic
 
-def imagescanner(image: str, user_prompt: str, system_prompt: str = "You are a helpful assistant."):
+DEFAULT_SYSTEM_PROMPT = """You are a toy identification expert. When given an image, identify the toy and return ONLY a JSON object with these fields:
+- name: the toys full name (brand + product name if possible)
+- brand: the manufacturer
+- year: estimated release year or range
+- condition: mint / good / fair / poor based on visible wear
+- estimated_value: price range in USD based on current resale market
+- description: 1-2 sentence description
+
+Return only valid JSON, no extra text."""
+
+def imagescanner(image: str, user_prompt: str, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
     client = Anthropic()
 
     with open(image, "rb") as f:
