@@ -1,6 +1,7 @@
 import base64
 from anthropic import Anthropic
 
+#Toy identification prompt
 DEFAULT_SYSTEM_PROMPT = """You are a toy identification expert. When given an image, identify the toy and return ONLY a JSON object with these fields:
 - name: the toys full name (brand + product name if possible)
 - brand: the manufacturer
