@@ -1,16 +1,15 @@
-from fastapi import FastAPI, File, UploadFile
-from pydantic import BaseModel
+from fastapi import APIRouter, File, UploadFile
 import os
 import json
 import tempfile
 from services.vision import imagescanner
 
-app = FastAPI()
+router = APIRouter()
 
-@app.post("/scan")
+@router.post("/scan")
 async def scan_file(file: UploadFile = File(...)):
     #read the file content. waits until it is read
-    content = await file.read()
+    content = await file.read() #reads file into bytes
 
     #scanning logic
     with tempfile.NamedTemporaryFile(delete=False, suffix = "png") as tmp:
