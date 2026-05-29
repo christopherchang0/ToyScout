@@ -1,8 +1,9 @@
-from fastapi import APIRouter, File, UploadFile
 import os
 import json
 import tempfile
+from fastapi import APIRouter, File, UploadFile
 from services.vision import imagescanner
+from services.supabase import save_scan
 
 router = APIRouter()
 
@@ -22,4 +23,7 @@ async def scan_file(file: UploadFile = File(...)):
     finally:
         os.remove(tmp_path)
 
+    save_scan(toy_info)
+
     return toy_info
+
