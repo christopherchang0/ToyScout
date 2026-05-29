@@ -14,9 +14,11 @@ Return only valid JSON, no extra text."""
 def imagescanner(image: str, user_prompt: str, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
     client = Anthropic()
 
+    #encode image prompt
     with open(image, "rb") as f:
         image_data = base64.standard_b64encode(f.read()).decode("utf-8")
 
+    #create ai model response
     response = client.messages.create(
         model = "claude-3-5-sonnet-20241022",
         max_tokens = 1000,
