@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
-const ImageScanner = () => {
+const ImageScanner = ({setScanId, setResult}) => {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const fileInputRef = useRef(null);
@@ -43,61 +43,55 @@ const ImageScanner = () => {
 
     //Handle image submission
     const handleSubmit = async () => {
-        if (!image) {
-            alert('Please select an image first.');
-            return;
-        }
+    if (!image) {
+        alert('Please select an image first.');
+        return;
+    }
 
-        const formData = new FormData();
-        formData.append('file', image);
+    const formData = new FormData();
+    formData.append('file', image);
 
-        try {
-      // Replace with your actual backend URL
-      const response = await axios.post('http://localhost:8000/scan', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Scan successful:', response.data);
-      alert('Scan completed successfully!');
+    try {
+        const response = await axios.post('http://localhost:8000/scan', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        setScanId(response.data.id)
+        setResult(response.data)
     } catch (error) {
-      console.error('Error scanning image:', error);
-      alert('Failed to scan image.');
+        console.error('Error scanning image:', error);
+        alert('Failed to scan image.');
     }
   };
-  return (
+      return (
     <div style={styles.container}>
-        {/* Drag and Drop Zone */}
-        <div
-        style = {styles.dropZone}
-        onDragOver = {handleDragOver}
+      <div
+        style={styles.dropZone}
+        onDragOver={handleDragOver}
         onDrop={handleDrop}
         onClick={handleButtonClick}
-        >
-            {preview ? (
-                <img src={preview} alt="Preview" style={styles.previewImage} />
-            ) : (
-                <div style = {styles.dropZoneText}>
-                    Drag & drop an image here or click to browse
-                    </div>
-                )}
-            {/* Hidden File Input */ }
-            <input
-            type="file"
-            ref={fileInputRef}
-            style = {{ display: 'none' }}
-            accept="image/*"
-            onChange={handleFileChange}
-            />
-            </div>
-
-            {/* Submit Button */}
-            <button onClick = {handleSubmit} style={styles.submitButton}>
-                Scan
-                </button>
-            </div>
+      >
+        {preview ? (
+          <img src={preview} alt="Preview" style={styles.previewImage} />
+        ) : (
+          <div style={styles.dropZoneText}>
+            Drag & drop an image here or click to browse
+          </div>
+        )}
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </div>
+      <button onClick={handleSubmit} style={styles.submitButton}>
+        Scan
+      </button>
+    </div>
   );
-};
+}
+
 
 // Simple inline styles for demonstration
 const styles = {

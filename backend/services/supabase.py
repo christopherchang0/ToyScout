@@ -26,3 +26,12 @@ def get_scans(scan_id: int):
         .execute()
     )
     return response.data[0] if response.data else None
+
+def get_all_scans():
+    response = (
+        supabase.table("scans")
+        .select("*")
+        .order("created_at", desc=True)
+        .execute()
+    )
+    return response.data
