@@ -8,7 +8,7 @@ load_dotenv()
 if not firebase_admin._apps:
     cred = credentials.Certificate(os.environ.get("FIREBASE_CREDENTIALS_PATH"))
     firebase_admin.initialize_app(cred, {
-        "databaseURL": os.environ.get("FIREBASE_DATABASE_URL")
+        "databaseURL": os.environ.get("FIREBASE_DB_URL")
     })
 
 def set_status(scan_id: str, status: str):
