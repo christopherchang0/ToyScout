@@ -19,6 +19,7 @@ export default function LiveStatus({ scanId }) {
   const [status, setStatus] = useState("Offline");
 
   useEffect(() => {
+    if (!scanId) return;
     const dbRef = ref(db, `scans/${scanId}`)
     
     const unsubscribe = onValue(dbRef, (snapshot) => {

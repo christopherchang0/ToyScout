@@ -31,7 +31,6 @@ def get_all_scans():
     response = (
         supabase.table("scans")
         .select("*")
-        .order("created_at", desc=True)
         .execute()
     )
     return response.data
