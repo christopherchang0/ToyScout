@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient (
-    import.meta.env.SUPABASE_URL,
-    import.meta.env.SUPABASE_KEY
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_KEY
 )
 
 export default function Login({ onLogin }) {
@@ -28,14 +28,14 @@ export default function Login({ onLogin }) {
      }
      return (
         <div>
-            <h2>(is SignUp ? 'Sign Up' : 'Log In')</h2>
+            <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
             <form onSubmit={handleSubmit}>
                 <input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
                 <input type='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
                 <button type="submit">{isSignUp ? 'Sign Up' : 'Log In'}</button>
             </form>
             {error && <p>{error}</p>}
-            <button onClick={() => setIsSignUp(!isSignUp)}>
+            <button onClick={() => setisSignUp(!isSignUp)}>
                 {isSignUp ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
             </button>
         </div>
