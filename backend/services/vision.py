@@ -13,38 +13,34 @@ DEFAULT_SYSTEM_PROMPT = """You are a toy identification expert. When given an im
 
 Return only valid JSON, no extra text."""
 
-def imagescanner(image: str, user_prompt: str, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
+def imagescanner(images: list, user_prompt: str, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
     client = Anthropic()
+    content = []
 
-    with open(image, "rb") as f:
-        image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+    for image in images:
+        with open(image, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
 
-    image_type = filetype.guess(image)
-    media_type = image_type.mime if image_type else "image/png"
+        image_type = filetype.guess(image)
+        media_type = image_type.mime if image_type else "image/png"
+
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": image_data,
+            },
+        })
+
+    content.append({"type": "text", "text": user_prompt})  # ← outside the loop
+
 
     response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=1000,
-        system=system_prompt,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": media_type,
-                            "data": image_data,
-                        },
-                    },
-                    {
-                        "type": "text",
-                        "text": user_prompt,
-                    }
-                ],
-            }
-        ],
+    model="claude-sonnet-4-5",
+    max_tokens=1000,
+    system=system_prompt,
+    messages=[{"role": "user", "content": content}],
     )
 
     return response.content[0].text
