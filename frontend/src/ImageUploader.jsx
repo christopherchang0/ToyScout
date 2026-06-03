@@ -2,22 +2,25 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
 const ImageScanner = ({setScanId, setResult}) => {
-    const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(null);
-    const fileInputRef = useRef(null);
+    const [images, setImages] = useState([]);
+    const [previews, setPreviews] = useState([]);
+    const fileInputRef = useRef(null);  // ← add this
+
 
     // Handle file selection (click and drop)
-    const handleFileSelection = (file) => {
+    const handleFileSelection = (files) => {
+      for (const file of files) {
         if (file && file.type.startsWith('image/')) {
-            setImage(file);
+            setImages(prev => [...prev, file]);
             const reader = new FileReader();
             reader.onloadend = () => {
-                setPreview(reader.result);
+                setPreviews(prev => [...prev, reader.result]);
             };
             reader.readAsDataURL(file);
         } else {
             alert('Please select a valid image file.');
         }
+      }
     };
 
     //Handle click to trigger file picker
@@ -27,8 +30,7 @@ const ImageScanner = ({setScanId, setResult}) => {
 
     //Handle file input change
     const handleFileChange = (e) => {
-        const file = e.target.files[0]
-        handleFileSelection(file);
+        handleFileSelection(Array.from(e.target.files));
     };
 
     const handleDragOver = (e) => {
@@ -37,19 +39,18 @@ const ImageScanner = ({setScanId, setResult}) => {
 
     const handleDrop = (e) => {
         e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        handleFileSelection(file);
+        handleFileSelection(Array.from(e.dataTransfer.files));
     };
 
     //Handle image submission
     const handleSubmit = async () => {
-    if (!image) {
+    if (images.length === 0) {
         alert('Please select an image first.');
         return;
     }
 
     const formData = new FormData();
-    formData.append('file', image);
+    images.forEach(image => formData.append('files', image));
 
     try {
         const response = await axios.post('http://localhost:8000/scan', formData, {
@@ -62,34 +63,23 @@ const ImageScanner = ({setScanId, setResult}) => {
         alert('Failed to scan image.');
     }
   };
-      return (
-    <div style={styles.container}>
-      <div
-        style={styles.dropZone}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        onClick={handleButtonClick}
-      >
-        {preview ? (
-          <img src={preview} alt="Preview" style={styles.previewImage} />
-        ) : (
-          <div style={styles.dropZoneText}>
-            Drag & drop an image here or click to browse
-          </div>
-        )}
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-      </div>
-      <button onClick={handleSubmit} style={styles.submitButton}>
-        Scan
-      </button>
-    </div>
-  );
+          return (
+        <div style={styles.container}>
+            <div style={styles.dropZone} onDragOver={handleDragOver} onDrop={handleDrop} onClick={handleButtonClick}>
+                {previews.length > 0 ? (
+                    <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                        {previews.map((src, i) => (
+                            <img key={i} src={src} alt={`Preview ${i}`} style={{width: '80px', height: '80px', objectFit: 'cover'}} />
+                        ))}
+                    </div>
+                ) : (
+                    <div style={styles.dropZoneText}>Drag & drop up to 3 images here or click to browse</div>
+                )}
+                <input type="file" ref={fileInputRef} style={{display: 'none'}} accept="image/*" multiple onChange={handleFileChange} />
+            </div>
+            <button onClick={handleSubmit} style={styles.submitButton}>Scan</button>
+        </div>
+    );
 }
 
 

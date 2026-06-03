@@ -27,7 +27,7 @@ async def scan_file(files: list[UploadFile] = File(...)):
 
     #Ensures temp file gets deleted even if imagescanner has error
     try:
-        result = imagescanner(tmp_paths, "Identify this toy. Make sure to specify the correct model using all of the images.")
+        result = imagescanner(tmp_paths, "Identify this specific toy figure. Look carefully for any text, numbers, or labels on the packaging or figure itself. Note the exact product line, series number, wave, and year printed on the toy or box. Be as specific as possible about which exact version or release this is.")
         # Strip markdown code blocks if present
         result = result.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         toy_info = json.loads(result)

@@ -10,6 +10,7 @@ DEFAULT_SYSTEM_PROMPT = """You are a toy identification expert. When given an im
 - condition: mint / good / fair / poor based on visible wear
 - estimated_value: price range in USD based on current resale market
 - description: 1-2 sentence description
+- series: specific product line and series number if visible (e.g. "Studio Series #38")
 
 Return only valid JSON, no extra text."""
 
