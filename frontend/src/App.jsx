@@ -5,8 +5,10 @@ import ImageUploader from './ImageUploader'
 import ScanResult from './ScanResult'
 import ScanStatus from './ScanStatus'
 import ScanHistory from './ScanHistory'
+import RecentScans from './RecentScans'
 
 function ScanPage({ user, setUser }) {
+    const [refreshKey, setRefreshKey] = useState(0)
     const [scanId, setScanId] = useState(null)
     const [result, setResult] = useState(null)
 
@@ -17,9 +19,11 @@ function ScanPage({ user, setUser }) {
                 <Link to="/history">History</Link>
                 <button onClick={() => setUser(null)}>Log out</button>
             </nav>
-            <ImageUploader setScanId={setScanId} setResult={setResult} />
+            <ImageUploader setScanId={setScanId} setResult={setResult} onScanComplete={() => setRefreshKey(k => k + 1)} />
             <ScanStatus scanId={scanId} />
             <ScanResult result={result} />
+            <RecentScans refreshKey={refreshKey} />
+
         </div>
     )
 }

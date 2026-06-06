@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
-const ImageScanner = ({setScanId, setResult}) => {
+const ImageScanner = ({setScanId, setResult, onScanComplete}) => {
     const [images, setImages] = useState([]);
     const [previews, setPreviews] = useState([]);
     const fileInputRef = useRef(null);  // ← add this
@@ -58,6 +58,7 @@ const ImageScanner = ({setScanId, setResult}) => {
         });
         setScanId(response.data.id)
         setResult(response.data)
+        onScanComplete()
     } catch (error) {
         console.error('Error scanning image:', error);
         alert('Failed to scan image.');
