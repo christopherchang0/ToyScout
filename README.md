@@ -22,7 +22,7 @@ ToyScout is a web app to help sellers find their old, unfamiliar toys, and sell 
 
 ## Frontend
 
-cd frontend && npm install && npm run dev
+    cd frontend && npm install && npm run dev
 
 ## Required Environment Variables:
 
@@ -34,4 +34,4 @@ cd frontend && npm install && npm run dev
 
 
 ## System Architecture:
-Image upload → FastAPI → Claude vision API → Supabase storage, with Firebase for real-time status polling
+    Image upload → FastAPI → Claude vision API → Supabase storage, with Firebase for real-time status polling
