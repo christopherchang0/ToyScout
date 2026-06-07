@@ -13,12 +13,12 @@ ToyScout is a web app to help sellers find their old, unfamiliar toys, and sell 
     - Multi-image upload
     - Resale value estimates
 
-Getting Started:
+## Getting Started:
 
 ## Backend
-cd backend && pip install -r 
+    cd backend && pip install -r 
 
-requirements.txt && uvicorn main:app --reload
+    requirements.txt && uvicorn main:app --reload
 
 ## Frontend
 
