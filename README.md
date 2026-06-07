@@ -12,3 +12,26 @@ ToyScout is a web app to help sellers find their old, unfamiliar toys, and sell 
     - Scan history with sorting
     - Multi-image upload
     - Resale value estimates
+
+Getting Started:
+
+## Backend
+cd backend && pip install -r 
+
+requirements.txt && uvicorn main:app --reload
+
+## Frontend
+
+cd frontend && npm install && npm run dev
+
+## Required Environment Variables:
+
+    - ANTHROPIC_API_KEY
+    - SUPABASE_URL
+    - SUPABASE_KEY
+    - FIREBASE_CREDENTIALS_PATH (path to the JSON service account file)
+    - FIREBASE_DB_URL
+
+
+## System Architecture:
+Image upload → FastAPI → Claude vision API → Supabase storage, with Firebase for real-time status polling
