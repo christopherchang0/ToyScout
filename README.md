@@ -11,7 +11,7 @@ ToyScout is a web app to help sellers find their old, unfamiliar toys, and sell 
     - Real-time scan status updates and polling
     - Scan history with sorting
     - Multi-image upload
-    - Resale value estimates
+    - Resale value estimates (need to find alternative from ebay api)
 
 ## Getting Started:
 
