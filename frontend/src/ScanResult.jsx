@@ -34,8 +34,8 @@ export default function ScanResult({ result, onScanAgain }) {
   return (
     <div style={S.page}>
       <div style={S.card}>
-        {result.previewUrl
-          ? <img src={result.previewUrl} alt="Scanned toy" style={S.previewImg} />
+        {(result.image_url || result.previewUrl)
+          ? <img src={result.image_url || result.previewUrl} alt="Scanned toy" style={S.previewImg} />
           : <div style={S.placeholder}>🧸</div>
         }
         <h2 style={S.name}>{result.name}</h2>

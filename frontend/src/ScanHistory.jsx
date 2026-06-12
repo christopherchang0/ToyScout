@@ -59,7 +59,10 @@ export default function ScanHistory() {
         <div style={S.list}>
           {sorted.map(scan => (
             <div key={scan.id} style={S.card}>
-              <div style={S.thumbnail}>🧸</div>
+              {scan.image_url
+                ? <img src={scan.image_url} alt={scan.name} style={{...S.thumbnail, objectFit: 'cover'}} />
+                : <div style={S.thumbnail}>🧸</div>
+              }
               <div style={S.cardBody}>
                 <p style={S.cardName}>{scan.name}</p>
                 <p style={S.cardMeta}>{scan.brand} · {scan.year} · {scan.condition}{scan.series ? ` · ${scan.series}` : ''}</p>

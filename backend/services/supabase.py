@@ -8,6 +8,14 @@ url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
+def upload_image(scan_id: str, file_bytes: bytes, content_type: str = "image/jpeg") -> str:
+    ext = content_type.split("/")[-1]
+    path = f"{scan_id}.{ext}"
+    supabase.storage.from_("toy-images").upload(
+        path, file_bytes, {"content-type": content_type, "upsert": "true"}
+    )
+    return supabase.storage.from_("toy-images").get_public_url(path)
+
 def save_scan(scan_data: dict):
     """Saves a scan record to the 'scans' table."""
     response = (

@@ -39,7 +39,10 @@ export default function RecentScans({ refreshKey }) {
       <div style={S.grid}>
         {scans.map(scan => (
           <div key={scan.id} style={S.card}>
-            <div style={S.thumbnail}>🧸</div>
+            {scan.image_url
+              ? <img src={scan.image_url} alt={scan.name} style={{...S.thumbnail, objectFit: 'cover'}} />
+              : <div style={S.thumbnail}>🧸</div>
+            }
             <p style={S.cardName}>{scan.name}</p>
             <p style={S.cardBrand}>{scan.brand}</p>
             <p style={S.cardPrice}>{scan.estimated_value}</p>
