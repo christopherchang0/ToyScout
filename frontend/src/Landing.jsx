@@ -53,7 +53,7 @@ const S = {
   }
 }
 
-export default function Landing({ onGetStarted }) {
+export default function Landing({ onGetStarted, dark, onToggleTheme }) {
   return (
     <div style={S.page}>
       <nav style={S.nav}>
@@ -62,6 +62,7 @@ export default function Landing({ onGetStarted }) {
           <button style={S.navPill} onClick={onGetStarted}>Discover</button>
           <button style={S.navPill} onClick={onGetStarted}>History</button>
           <button style={S.navFab} onClick={onGetStarted}>+</button>
+          <button style={S.navProfile} onClick={onToggleTheme}>{dark ? '☀️' : '🌙'}</button>
           <button style={S.navProfile} onClick={onGetStarted}>P</button>
         </div>
       </nav>
