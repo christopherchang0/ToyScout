@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
+import Landing from './Landing'
 import Login from './Login'
 import ImageUploader from './ImageUploader'
 import ScanResult from './ScanResult'
@@ -7,52 +8,90 @@ import ScanStatus from './ScanStatus'
 import ScanHistory from './ScanHistory'
 import RecentScans from './RecentScans'
 
-function ScanPage({ user, setUser }) {
-    const [refreshKey, setRefreshKey] = useState(0)
-    const [scanId, setScanId] = useState(null)
-    const [result, setResult] = useState(null)
-
-    return (
-        <div>
-            <nav>
-                <Link to="/">Scan</Link>
-                <Link to="/history">History</Link>
-                <button onClick={() => setUser(null)}>Log out</button>
-            </nav>
-            <ImageUploader setScanId={setScanId} setResult={setResult} onScanComplete={() => setRefreshKey(k => k + 1)} />
-            <ScanStatus scanId={scanId} />
-            <ScanResult result={result} />
-            <RecentScans refreshKey={refreshKey} />
-
-        </div>
-    )
+const navS = {
+  nav: {
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    padding: '14px 32px', borderBottom: '1px solid var(--border)'
+  },
+  logo: { fontWeight: 600, fontSize: '17px', color: 'var(--text-h)', textDecoration: 'none' },
+  links: { display: 'flex', gap: '8px', alignItems: 'center' },
+  pill: (active) => ({
+    padding: '6px 18px', borderRadius: '999px', textDecoration: 'none',
+    fontSize: '14px', color: active ? '#fff' : 'var(--text-h)', fontFamily: 'var(--sans)',
+    background: active ? 'var(--accent)' : 'transparent',
+    border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
+  }),
+  fab: {
+    width: '34px', height: '34px', borderRadius: '999px', border: 'none',
+    background: 'var(--accent)', cursor: 'pointer', fontSize: '20px', color: '#fff',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none'
+  },
+  profile: {
+    width: '34px', height: '34px', borderRadius: '999px', border: '1px solid var(--border)',
+    background: 'var(--code-bg)', cursor: 'pointer', fontSize: '13px', color: 'var(--text-h)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--sans)'
+  }
 }
 
-function HistoryPage({ setUser }) {
-    return (
-        <div>
-            <nav>
-                <Link to="/">Scan</Link>
-                <Link to="/history">History</Link>
-                <button onClick={() => setUser(null)}>Log out</button>
-            </nav>
-            <ScanHistory />
-        </div>
-    )
+function AppNav({ onLogout }) {
+  const location = useLocation()
+  return (
+    <nav style={navS.nav}>
+      <Link to="/" style={navS.logo}>ToyScout</Link>
+      <div style={navS.links}>
+        <Link to="/" style={navS.pill(location.pathname === '/')}>Discover</Link>
+        <Link to="/history" style={navS.pill(location.pathname === '/history')}>History</Link>
+        <Link to="/" style={navS.fab}>+</Link>
+        <button style={navS.profile} onClick={onLogout}>P</button>
+      </div>
+    </nav>
+  )
 }
 
-function App() {
-    const [user, setUser] = useState(null)
+function DiscoverPage() {
+  const [refreshKey, setRefreshKey] = useState(0)
+  const [scanId, setScanId] = useState(null)
+  const [result, setResult] = useState(null)
 
-    if (!user) return <Login onLogin={setUser} />
+  const handleScanAgain = () => {
+    setResult(null)
+    setScanId(null)
+  }
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<ScanPage user={user} setUser={setUser} />} />
-                <Route path="/history" element={<HistoryPage setUser={setUser} />} />
-            </Routes>
-        </BrowserRouter>
-    )
+  return result ? (
+    <>
+      <ScanResult result={result} onScanAgain={handleScanAgain} />
+      <RecentScans refreshKey={refreshKey} />
+    </>
+  ) : (
+    <>
+      <ImageUploader
+        setScanId={setScanId}
+        setResult={setResult}
+        onScanComplete={() => setRefreshKey(k => k + 1)}
+      />
+      <ScanStatus scanId={scanId} />
+      <RecentScans refreshKey={refreshKey} />
+    </>
+  )
 }
-export default App
+
+export default function App() {
+  const [user, setUser] = useState(null)
+  const [view, setView] = useState('landing')
+
+  if (!user) {
+    if (view === 'landing') return <Landing onGetStarted={() => setView('login')} />
+    return <Login onLogin={(u) => { setUser(u); setView('app') }} />
+  }
+
+  return (
+    <BrowserRouter>
+      <AppNav onLogout={() => { setUser(null); setView('landing') }} />
+      <Routes>
+        <Route path="/" element={<DiscoverPage />} />
+        <Route path="/history" element={<ScanHistory />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
