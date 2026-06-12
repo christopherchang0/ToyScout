@@ -22,7 +22,8 @@ const S = {
   cardBody: { textAlign: 'left', flex: 1 },
   cardName: { margin: '0 0 4px', color: 'var(--text-h)', fontSize: '16px', fontWeight: 600 },
   cardMeta: { margin: '0 0 2px', color: 'var(--text)', fontSize: '13px' },
-  cardPrice: { margin: 0, color: 'var(--accent)', fontSize: '14px', fontWeight: 500 },
+  cardDesc: { margin: '4px 0 0', color: 'var(--text)', fontSize: '13px', lineHeight: '1.4' },
+  cardPrice: { margin: '4px 0 0', color: 'var(--accent)', fontSize: '14px', fontWeight: 500 },
   empty: { color: 'var(--text)', textAlign: 'center', padding: '40px' }
 }
 
@@ -61,7 +62,8 @@ export default function ScanHistory() {
               <div style={S.thumbnail}>🧸</div>
               <div style={S.cardBody}>
                 <p style={S.cardName}>{scan.name}</p>
-                <p style={S.cardMeta}>{scan.brand} · {scan.year} · {scan.condition}</p>
+                <p style={S.cardMeta}>{scan.brand} · {scan.year} · {scan.condition}{scan.series ? ` · ${scan.series}` : ''}</p>
+                {scan.description && <p style={S.cardDesc}>{scan.description}</p>}
                 <p style={S.cardPrice}>{scan.estimated_value}</p>
               </div>
             </div>
