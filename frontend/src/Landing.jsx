@@ -1,4 +1,4 @@
-import heroImg from './assets/hero.png'
+import heroImg from './assets/action figure.webp'
 
 const S = {
   page: { minHeight: '100vh', display: 'flex', flexDirection: 'column' },
