@@ -7,12 +7,7 @@ const S = {
     padding: '16px 32px', borderBottom: '1px solid var(--border)'
   },
   navLogo: { fontWeight: 600, fontSize: '18px', color: 'var(--text-h)', margin: 0 },
-  navLinks: { display: 'flex', gap: '8px', alignItems: 'center' },
-  navPill: {
-    padding: '6px 18px', borderRadius: '999px', border: '1px solid var(--border)',
-    background: 'transparent', cursor: 'pointer', fontSize: '14px', color: 'var(--text-h)',
-    fontFamily: 'var(--sans)'
-  },
+  navLinks: { display: 'flex', gap: '16px', alignItems: 'center' },
   navFab: {
     width: '34px', height: '34px', borderRadius: '999px', border: 'none',
     background: 'var(--accent)', cursor: 'pointer', fontSize: '20px', color: '#fff',
@@ -27,8 +22,8 @@ const S = {
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     justifyContent: 'center', padding: '80px 32px 48px', textAlign: 'center'
   },
-  title: { fontSize: '60px', fontWeight: 700, color: 'var(--text-h)', margin: '0 0 16px', letterSpacing: '-2px' },
-  tagline: { fontSize: '18px', color: 'var(--text)', maxWidth: '460px', margin: '0 auto 40px', lineHeight: '1.5' },
+  title: { fontSize: '60px', fontWeight: 700, color: 'var(--text-h)', margin: '0 0 36px', letterSpacing: '-2px' },
+  tagline: { fontSize: '18px', color: 'var(--text)', whiteSpace: 'nowrap', margin: '0 auto 40px', lineHeight: '1.6', textAlign: 'center' },
   ctaGroup: { display: 'flex', gap: '12px', justifyContent: 'center' },
   primaryBtn: {
     padding: '12px 28px', background: 'var(--accent)', color: '#fff',
@@ -41,26 +36,44 @@ const S = {
     fontFamily: 'var(--sans)'
   },
   whatWeDo: {
-    display: 'flex', alignItems: 'center', gap: '48px',
-    padding: '40px 32px', borderTop: '1px solid var(--border)', textAlign: 'left'
+    display: 'flex', alignItems: 'stretch', gap: '48px',
+    padding: '40px 32px', borderTop: '1px solid var(--border)', textAlign: 'left',
+    minHeight: '420px'
   },
-  whatWeDoText: { flex: 1 },
-  whatWeDoHeading: { margin: '0 0 10px', color: 'var(--text-h)', fontSize: '22px', fontWeight: 500 },
-  whatWeDoDesc: { color: 'var(--text)', lineHeight: '1.6', fontSize: '16px' },
+  whatWeDoText: { flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' },
+  whatWeDoHeading: { margin: '0 0 10px', color: 'var(--text-h)', fontSize: '28px', fontWeight: 600 },
+  whatWeDoDesc: { color: 'var(--text)', lineHeight: '1.6', fontSize: '18px' },
   heroImg: {
-    width: '220px', height: '160px', objectFit: 'cover',
-    borderRadius: '12px', border: '1px solid var(--border)', flexShrink: 0
+    width: '400px', alignSelf: 'stretch', objectFit: 'cover',
+    borderRadius: '12px', border: '1px solid var(--border)', flexShrink: 0, minHeight: '380px'
   }
 }
 
 export default function Landing({ onGetStarted, dark, onToggleTheme }) {
   return (
     <div style={S.page}>
+      <style>{`
+        .nav-link {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 15px;
+          color: var(--text-h);
+          font-family: var(--sans);
+          padding: 4px 2px;
+          transition: transform 0.15s ease, text-shadow 0.15s ease;
+        }
+        .nav-link:hover {
+          transform: scale(1.1);
+          text-shadow: 0 0 12px rgba(37, 99, 235, 0.7);
+        }
+      `}</style>
+
       <nav style={S.nav}>
         <p style={S.navLogo}>ToyScout</p>
         <div style={S.navLinks}>
-          <button style={S.navPill} onClick={onGetStarted}>Discover</button>
-          <button style={S.navPill} onClick={onGetStarted}>History</button>
+          <button className="nav-link" onClick={onGetStarted}>Discover</button>
+          <button className="nav-link" onClick={onGetStarted}>History</button>
           <button style={S.navFab} onClick={onGetStarted}>+</button>
           <button style={S.navProfile} onClick={onToggleTheme}>{dark ? '☀️' : '🌙'}</button>
           <button style={S.navProfile} onClick={onGetStarted}>P</button>
@@ -79,15 +92,17 @@ export default function Landing({ onGetStarted, dark, onToggleTheme }) {
       </div>
 
       <div style={S.whatWeDo}>
+        <img src={heroImg} alt="ToyScout demo" style={S.heroImg} />
         <div style={S.whatWeDoText}>
-          <h2 style={S.whatWeDoHeading}>What we do:</h2>
+          <h2 style={S.whatWeDoHeading}>What is ToyScout?</h2>
           <p style={S.whatWeDoDesc}>
             ToyScout uses AI vision to instantly identify toys from photos — returning
             name, brand, year, condition, and estimated resale value. Build your collection
-            history and track market prices over time.
+            history and track market prices over time. Whether you're a casual collector
+            or a serious reseller, ToyScout gives you the information you need at a glance.
+            No more guessing what your toys are worth — just snap a photo and let the AI do the rest.
           </p>
         </div>
-        <img src={heroImg} alt="ToyScout demo" style={S.heroImg} />
       </div>
     </div>
   )
