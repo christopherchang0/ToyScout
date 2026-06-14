@@ -23,13 +23,13 @@ const navS = {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
     padding: '14px 32px'
   },
-  logo: { fontWeight: 600, fontSize: '17px', color: 'var(--text-h)', textDecoration: 'none' },
+  logo: { fontWeight: 600, fontSize: '17px', color: 'var(--nav-color)', textDecoration: 'none' },
   links: { display: 'flex', gap: '8px', alignItems: 'center' },
   pill: (active) => ({
     padding: '6px 18px', borderRadius: '999px', textDecoration: 'none',
-    fontSize: '14px', color: active ? '#fff' : 'var(--text-h)', fontFamily: 'var(--sans)',
+    fontSize: '14px', color: active ? '#fff' : 'var(--nav-color)', fontFamily: 'var(--sans)',
     background: active ? 'var(--accent)' : 'transparent',
-    border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
+    border: `1px solid ${active ? 'var(--accent)' : 'var(--nav-border)'}`,
   }),
   fab: {
     width: '34px', height: '34px', borderRadius: '999px', border: 'none',
@@ -37,8 +37,8 @@ const navS = {
     display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none'
   },
   iconBtn: {
-    width: '34px', height: '34px', borderRadius: '999px', border: '1px solid var(--border)',
-    background: 'var(--code-bg)', cursor: 'pointer', fontSize: '15px', color: 'var(--text-h)',
+    width: '34px', height: '34px', borderRadius: '999px', border: '1px solid var(--nav-border)',
+    background: 'transparent', cursor: 'pointer', fontSize: '15px', color: 'var(--nav-color)',
     display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--sans)'
   }
 }

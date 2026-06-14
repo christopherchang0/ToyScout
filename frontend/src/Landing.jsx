@@ -6,7 +6,7 @@ const S = {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
     padding: '16px 32px'
   },
-  navLogo: { fontWeight: 600, fontSize: '18px', color: 'var(--text-h)', margin: 0 },
+  navLogo: { fontWeight: 600, fontSize: '18px', color: 'var(--nav-color)', margin: 0 },
   navLinks: { display: 'flex', gap: '16px', alignItems: 'center' },
   navFab: {
     width: '34px', height: '34px', borderRadius: '999px', border: 'none',
@@ -14,8 +14,8 @@ const S = {
     display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--sans)'
   },
   navProfile: {
-    width: '34px', height: '34px', borderRadius: '999px', border: '1px solid var(--border)',
-    background: 'var(--code-bg)', cursor: 'pointer', fontSize: '13px', color: 'var(--text-h)',
+    width: '34px', height: '34px', borderRadius: '999px', border: '1px solid var(--nav-border)',
+    background: 'transparent', cursor: 'pointer', fontSize: '13px', color: 'var(--nav-color)',
     display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--sans)'
   },
   hero: {
@@ -58,7 +58,7 @@ export default function Landing({ onGetStarted, dark, onToggleTheme }) {
           border: none;
           cursor: pointer;
           font-size: 15px;
-          color: var(--text-h);
+          color: var(--nav-color);
           font-family: var(--sans);
           padding: 4px 2px;
           transition: transform 0.15s ease, text-shadow 0.15s ease;
