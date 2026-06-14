@@ -33,11 +33,11 @@
 [data-theme="dark"] {
   --text: #9ca3af;
   --text-h: #f9fafb;
-  --bg: #111827;
-  --border: #1f2937;
+  --bg: #121212;
+  --border: #3d3b3b;
   --code-bg: #1f2937;
   --accent: #3b82f6;
-  --accent-bg: rgba(59, 130, 246, 0.12);
+  --accent-bg: rgba(6, 8, 12, 0.12);
   --accent-border: rgba(59, 130, 246, 0.4);
   --social-bg: rgba(31, 41, 55, 0.8);
   --shadow:
