@@ -9,7 +9,7 @@ const supabase = createClient(
 
 const S = {
   page: {
-    minHeight: '100vh', display: 'flex', alignItems: 'stretch'
+    minHeight: '100vh', display: 'flex', alignItems: 'stretch', overflow: 'hidden'
   },
   left: {
     flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
@@ -33,12 +33,10 @@ const S = {
   },
   error: { color: '#dc2626', fontSize: '14px', margin: '8px 0 0', textAlign: 'left' },
   right: {
-    flex: 1, background: 'var(--code-bg)', display: 'flex', alignItems: 'center',
-    justifyContent: 'center', padding: '40px'
+    flex: 1, position: 'relative', minHeight: '100vh'
   },
   rightImg: {
-    width: '100%', maxWidth: '380px', height: '340px', objectFit: 'cover',
-    borderRadius: '16px', border: '1px solid var(--border)'
+    position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block'
   }
 }
 
