@@ -21,7 +21,7 @@ function useTheme() {
 const navS = {
   nav: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    padding: '14px 32px', borderBottom: '1px solid var(--border)'
+    padding: '14px 32px'
   },
   logo: { fontWeight: 600, fontSize: '17px', color: 'var(--text-h)', textDecoration: 'none' },
   links: { display: 'flex', gap: '8px', alignItems: 'center' },

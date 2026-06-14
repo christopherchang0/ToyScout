@@ -4,7 +4,7 @@ const S = {
   page: { minHeight: '100vh', display: 'flex', flexDirection: 'column' },
   nav: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    padding: '16px 32px', borderBottom: '1px solid var(--border)'
+    padding: '16px 32px'
   },
   navLogo: { fontWeight: 600, fontSize: '18px', color: 'var(--text-h)', margin: 0 },
   navLinks: { display: 'flex', gap: '16px', alignItems: 'center' },
@@ -81,7 +81,7 @@ export default function Landing({ onGetStarted, dark, onToggleTheme }) {
       </nav>
 
       <div style={S.hero}>
-        <h1 style={S.title}>Toyscout</h1>
+        <h1 style={S.title}>ToyScout</h1>
         <p style={S.tagline}>
           Identify, value, and track your toy collection with AI-powered vision
         </p>
