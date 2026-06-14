@@ -96,11 +96,11 @@ export default function Landing({ onGetStarted, dark, onToggleTheme }) {
         <div style={S.whatWeDoText}>
           <h2 style={S.whatWeDoHeading}>What is ToyScout?</h2>
           <p style={S.whatWeDoDesc}>
-            ToyScout uses AI vision to instantly identify toys from photos — returning
+            ToyScout uses AI vision to instantly identify toys from photos, returning
             name, brand, year, condition, and estimated resale value. Build your collection
             history and track market prices over time. Whether you're a casual collector
             or a serious reseller, ToyScout gives you the information you need at a glance.
-            No more guessing what your toys are worth — just snap a photo and let the AI do the rest.
+            Just snap a photo and we figure out the rest.
           </p>
         </div>
       </div>
